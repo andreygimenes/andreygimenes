@@ -9,6 +9,19 @@
 </head>
 <body class="bg-gray-100 min-h-screen flex justify-center">
     <div id="app" class="flex flex-col gap-6 w-full max-w-screen-md min-h-dvh p-4 sm:p-6 bg-white rounded-sm shadow-lg text-center">
+        <div class="flex w-full h-full top-0 left-0 fixed z-30 min-w-dvh max-w-dvh min-h-dvh max-h-dvh bg-white" v-if="alert.active">
+            <div class="flex flex-col mx-auto my-auto">
+                <div class="text-lg font-bold">
+                    {{ alert.title }}
+                </div>
+                <div>
+                    {{ alert.message }}
+                </div>
+                <div class="mx-auto w-20 text-md text-white bg-black hover:bg-gray-900 cursor-pointer rounded p-2 mt-6" v-on:click="alert.active = false">
+                    Ok
+                </div>
+            </div>
+        </div>
         <div class="flex flex-col sm:flex-row gap-6">
             <img class="ml-auto mr-auto sm:ml-0 sm:mr-0 min-w-36 min-h-36 max-w-36 max-h-36 rounded-full" src="rsc/pfp.png" />
             <div class="flex flex-col gap-1 py-4">
@@ -19,7 +32,7 @@
         <div class="flex flex-col gap-2">
             <h1 class="text-xl font-semibold text-left">Acesse também:</h1>
             <div class="flex flex-col gap-3">
-                <div class="flex bg-white hover:bg-gray-100 border cursor-pointer rounded" v-on:click="goTo('https://www.psiki.com')">
+                <div class="flex bg-white hover:bg-gray-100 border cursor-pointer rounded" v-on:click="alert.active = true">
                     <div class="flex min-w-24 h-24 min-h-full max-w-24 sm:min-w-32 sm:h-32 sm:min-h-full sm:max-w-32 p-4 border-r">
                         <img class="mx-auto my-auto" src="rsc/psiki-full-logo-dark.png" />
                     </div>
@@ -32,7 +45,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="flex bg-white hover:bg-gray-100 border cursor-pointer rounded" v-on:click="goTo('https://www.psiki.com')">
+                <div class="flex bg-white hover:bg-gray-100 border cursor-pointer rounded" v-on:click="alert.active = true">
                     <div class="flex min-w-24 h-24 min-h-full max-w-24 sm:min-w-32 sm:h-32 sm:min-h-full sm:max-w-32 p-4 border-r">
                         <img class="mx-auto my-auto" src="rsc/psiki-x1-full-logo-dark.png" />
                     </div>
@@ -78,7 +91,11 @@
         createApp({
             data() {
                 return {
-                    
+                    alert: {
+                        active: false,
+                        title: "Serviço indisponível",
+                        message: "Volte mais tarde.",
+                    }
                 }
             },
             computed: {
